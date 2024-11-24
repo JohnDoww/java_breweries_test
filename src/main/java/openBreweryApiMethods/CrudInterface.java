@@ -1,14 +1,15 @@
 package openBreweryApiMethods;
 
-import io.restassured.response.Response;
+import objectModels.BreweryObject;
+import java.util.List;
 
 /**
  * Interface which we have to implement for each Class with API methods
  */
 public interface CrudInterface {
 
-    public Response create();
-    public Response get(String id);
-    public Response update ();
-    public Response delete();
+    public List<BreweryObject> create(BreweryObject object);
+    public List<BreweryObject> get(String endpoint);
+    public List<BreweryObject> update (BreweryObject object);
+    public List<BreweryObject> delete(BreweryObject id);
 }

@@ -2,7 +2,10 @@ package openBreweryApiMethods;
 
 import io.restassured.response.Response;
 import io.restassured.RestAssured;
+import objectModels.BreweryObject;
+import org.apache.http.HttpStatus;
 import org.testng.Assert;
+import java.util.List;
 
 /**
  * Implementation of the methods which we will use while testing. Every method should have default status code assertion
@@ -10,32 +13,31 @@ import org.testng.Assert;
 
 public class SearchBreweriesMethods implements CrudInterface {
 
-    public Response get(String endpoint, String query) {
+    public List<BreweryObject> get(String endpoint, String query) {
         Response response = RestAssured.get(endpoint + query).then().extract().response();
-        Assert.assertEquals(200, response.statusCode());
-
-        return response;
+        Assert.assertEquals(HttpStatus.SC_OK, response.statusCode());
+        return response.jsonPath().getList("", BreweryObject.class);
     }
 
-    public Response get(String endpoint) {
+    @Override
+    public List<BreweryObject> get(String endpoint) {
         Response response = RestAssured.get(endpoint).then().extract().response();
-        Assert.assertEquals(200, response.statusCode());
-
-        return response;
+        Assert.assertEquals(HttpStatus.SC_OK, response.statusCode());
+        return response.jsonPath().getList("", BreweryObject.class);
     }
 
     @Override
-    public Response create() {
+    public List<BreweryObject> create(BreweryObject object) {
         return null;
     }
 
     @Override
-    public Response update() {
+    public List<BreweryObject> update(BreweryObject object) {
         return null;
     }
 
     @Override
-    public Response delete() {
+    public List<BreweryObject> delete(BreweryObject id) {
         return null;
     }
 
